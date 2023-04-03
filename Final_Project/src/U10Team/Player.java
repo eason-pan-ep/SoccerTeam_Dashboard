@@ -23,5 +23,9 @@ public interface Player {
    */
   int getPlayerKillLevel();
 
-
+  /**
+   * Get the preferred position of this player.
+   * @return the Position this player prefers.
+   */
+  Position getPreferredPosition();
 }
