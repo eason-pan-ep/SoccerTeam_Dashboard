@@ -3,7 +3,7 @@ package U10Team;
 /**
  * This is the Interface of Player, it represents a U10 soccer team player.
  */
-public interface Player {
+public interface Player{
   /**
    * Get the name of this player.
    * @return a string with the player's full name in the format of "FirstName, LastName".
