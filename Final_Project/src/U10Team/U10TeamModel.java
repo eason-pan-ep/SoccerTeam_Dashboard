@@ -20,6 +20,12 @@ public interface U10TeamModel {
   void addPlayer(String firstName, String lastName, int year, int month, int day, Position preferredPosition, int skillLevel) throws IllegalArgumentException, IllegalStateException;
 
   /**
+   * Remove a player from current team by their jersey number.
+   * @param jerseyNumber the jersey number of the player to be removed.
+   */
+  void removePlayer(int jerseyNumber);
+
+  /**
    * Create a team and auto generate the staring lineup.
    * @throws IllegalStateException when there are less than 10 Players in the team.
    */

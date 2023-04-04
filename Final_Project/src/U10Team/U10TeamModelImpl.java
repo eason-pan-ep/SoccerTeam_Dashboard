@@ -39,6 +39,10 @@ public class U10TeamModelImpl implements U10TeamModel {
     }
   }
 
+  @Override public void removePlayer(int jerseyNumber) {
+
+  }
+
   /**
    * Assign an available jersey number to new added player.
    * Remove this number from the pool after assigned.
