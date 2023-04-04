@@ -21,7 +21,7 @@ public interface Player{
    * Scale from 0 as the worst to 10 the best.
    * @return an int represents the skill level of this player.
    */
-  int getPlayerKillLevel();
+  int getPlayerSkillLevel();
 
   /**
    * Get the preferred position of this player.

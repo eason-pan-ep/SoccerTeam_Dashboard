@@ -1,5 +1,7 @@
 package U10Team;
 import java.time.Year;
+import java.time.LocalDate;
+import java.time.Period;
 public class PlayerImpl implements Player {
   private final String firstName;
   private final String lastName;
@@ -47,18 +49,20 @@ public class PlayerImpl implements Player {
 
 
   @Override public String getName() {
-    return null;
+    return String.format("%s %s", this.firstName, this.lastName);
   }
 
   @Override public int getPlayerAge() {
-    return 0;
+    LocalDate birthDay = LocalDate.of(this.yearOfBirth, this.monthOfBirth, this.dayOfBirth);
+    LocalDate today = LocalDate.now();
+    return Period.between(birthDay, today).getYears();
   }
 
-  @Override public int getPlayerKillLevel() {
-    return 0;
+  @Override public int getPlayerSkillLevel() {
+    return this.skillLevel;
   }
 
   @Override public Position getPreferredPosition() {
-    return null;
+    return this.preferredPosition;
   }
 }

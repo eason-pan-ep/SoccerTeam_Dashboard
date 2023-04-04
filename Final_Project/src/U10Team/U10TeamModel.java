@@ -33,6 +33,13 @@ public interface U10TeamModel {
   String getTeam();
 
   /**
+   * Form a 7 people starting lineup,
+   * in the formation of 1-2-3-1.
+   * Users may form again when they added new Players.
+   */
+  void formStartingLineup();
+
+  /**
    * Get a list-like string with every Player in the starting lineup with the information of: first name, last name, jersey number, and position.
    * This list is sorted by Position(goalie, defender, midfielder, forward).
    * @return a list-like string contains the information described above.
