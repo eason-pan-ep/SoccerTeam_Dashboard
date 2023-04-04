@@ -37,7 +37,7 @@ public enum Position implements Comparator<Position> {
       case FORWARD:
         return "Forward";
       default:
-        return "No Position in record";
+        return "No Position Record";
     }
   }
 

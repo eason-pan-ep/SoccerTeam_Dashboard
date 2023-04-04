@@ -17,8 +17,8 @@ public class PositionTest {
     Position[] sortTest = {Position.DEFENDER, Position.GOALIE, Position.FORWARD, Position.MIDFIELDER};
     Arrays.sort(sortTest);
     StringBuilder output = new StringBuilder() ;
-    for(int i = 0; i < 4; i++){
-      output.append(String.format("%s, ", sortTest[i].toString()));
+    for(Position i : sortTest){
+      output.append(String.format("%s, ", i.toString()));
     }
     assertEquals("Goalie, Defender, Midfielder, Forward, ", output.toString());
   }

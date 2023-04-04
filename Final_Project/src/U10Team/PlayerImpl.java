@@ -2,6 +2,7 @@ package U10Team;
 import java.time.Year;
 import java.time.LocalDate;
 import java.time.Period;
+
 public class PlayerImpl implements Player {
   private final String firstName;
   private final String lastName;
@@ -65,4 +66,10 @@ public class PlayerImpl implements Player {
   @Override public Position getPreferredPosition() {
     return this.preferredPosition;
   }
+
+  @Override public String getLastName() {
+    return this.lastName;
+  }
+
+
 }

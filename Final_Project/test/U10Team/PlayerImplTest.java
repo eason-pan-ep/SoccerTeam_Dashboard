@@ -14,6 +14,7 @@ public class PlayerImplTest {
     this.tester = new PlayerImpl("John", "Wick", 2015, 9,11, Position.DEFENDER, 7);
 
     this.tester2 = new PlayerImpl("Apple", "Rotate", 2020, 3, 2, Position.FORWARD, 2);
+
   }
 
   /**
@@ -118,5 +119,6 @@ public class PlayerImplTest {
     assertEquals(Position.DEFENDER, this.tester.getPreferredPosition());
     assertEquals(Position.FORWARD, this.tester2.getPreferredPosition());
   }
+
 
 }

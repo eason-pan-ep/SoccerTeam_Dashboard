@@ -45,4 +45,10 @@ public interface U10TeamModel {
    * @return a list-like string contains the information described above.
    */
   String getStartingLineup();
+
+  /**
+   * Get the current size of this team.
+   * @return the team size.
+   */
+  int getSize();
 }
