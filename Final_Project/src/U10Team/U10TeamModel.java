@@ -22,11 +22,15 @@ public interface U10TeamModel {
   /**
    * Remove a player from current team by their jersey number.
    * @param jerseyNumber the jersey number of the player to be removed.
+   * @throws IllegalArgumentException when the number less than 1 or greater than 20,
+   * when this jersey number hasn't been assigned.
+   * @throws IllegalStateException when removing players from an empty team.
+   * when the team is formed and removing one player will cause this team has less than 10 player.
    */
-  void removePlayer(int jerseyNumber);
+  void removePlayer(int jerseyNumber) throws IllegalArgumentException, IllegalStateException;
 
   /**
-   * Create a team and auto generate the staring lineup.
+   * Create a team and now the coach can form a starting lineup.
    * @throws IllegalStateException when there are less than 10 Players in the team.
    */
   void createTeam()throws IllegalStateException;
@@ -35,6 +39,18 @@ public interface U10TeamModel {
    * Get a list-like string with every Player in the team with the information of the Player's first name, last name, jersey number.
    * This List is sorted in alphabetical order (last name).
    * @return a list-like string contains the information described above.
+   * An example of output:
+   *  All Team Member
+   * -----------------------------------------------------
+   *         Player Name       Jersey Number
+   * -----------------------------------------------------
+   *          Jack Asaka                1
+   *          Jack Black               13
+   *            Jack Cat               12
+   *           Jack Duke               17
+   *         Jack Harmon                9
+   *          Jack Vyoge               11
+   *           Jack Zack               20
    */
   String getTeam();
 
@@ -42,6 +58,14 @@ public interface U10TeamModel {
    * Form a 7 people starting lineup,
    * in the formation of 1-2-3-1.
    * Users may form again when they added new Players.
+   * The logic to pick starting lineup players:
+   *    1. consider their preferred position, fill all team member meet the requirement, sort by skill level;
+   *    2. if there are more than needed in a Position,
+   *          remove extras from the tail;
+   *    3. if there are Positions don't have enough players,
+   *          add whoever is still available
+   *          and with the highest skill level to fill,
+   *          filling order is: goalie, defender, midfielder, forward;
    */
   void formStartingLineup();
 
