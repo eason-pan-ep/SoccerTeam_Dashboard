@@ -1,4 +1,4 @@
-package U10Team;
+package soccerteam;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,12 +12,12 @@ public class PositionTest {
   /**
    * Test if the compare function is correct in Position.
    */
-  @Test
-  public void testPositionSortingOrder(){
-    Position[] sortTest = {Position.DEFENDER, Position.GOALIE, Position.FORWARD, Position.MIDFIELDER};
+  @Test public void testPositionSortingOrder() {
+    Position[] sortTest = { Position.DEFENDER, Position.GOALIE, Position.FORWARD,
+        Position.MIDFIELDER };
     Arrays.sort(sortTest);
-    StringBuilder output = new StringBuilder() ;
-    for(Position i : sortTest){
+    StringBuilder output = new StringBuilder();
+    for (Position i : sortTest) {
       output.append(String.format("%s, ", i.toString()));
     }
     assertEquals("Goalie, Defender, Midfielder, Forward, ", output.toString());
@@ -26,11 +26,11 @@ public class PositionTest {
   /**
    * Test Position Order value is correct.
    */
-  @Test
-  public void testPositionGetOrder(){
-    Position[] orderTest = {Position.GOALIE, Position.DEFENDER, Position.MIDFIELDER, Position.FORWARD};
+  @Test public void testPositionGetOrder() {
+    Position[] orderTest = { Position.GOALIE, Position.DEFENDER, Position.MIDFIELDER,
+        Position.FORWARD };
     String testOutput = "";
-    for(Position i : orderTest){
+    for (Position i : orderTest) {
       testOutput += String.format("%d, ", i.getOrder());
     }
     assertEquals("1, 2, 3, 4, ", testOutput);
@@ -39,8 +39,7 @@ public class PositionTest {
   /**
    * Test the correctness of compare() Override.
    */
-  @Test
-  public void testPositionCompareCorrectness(){
+  @Test public void testPositionCompareCorrectness() {
     Position test1 = Position.GOALIE;
     Position test2 = Position.FORWARD;
     Position test3 = Position.GOALIE;

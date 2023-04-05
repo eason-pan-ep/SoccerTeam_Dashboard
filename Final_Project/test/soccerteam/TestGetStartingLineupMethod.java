@@ -1,7 +1,17 @@
-package U10Team;
+package soccerteam;
 
-public class testGetStartingLineupMethod {
-  public static void main(String[] args){
+/**
+ * This is a dedicated test Class for testing getStartingLineup method from U10TeamModelImpl.
+ * Having this separate testing class is
+ * due to random generated jersey number output can hardly be tested suing assertEquals.
+ */
+public class TestGetStartingLineupMethod {
+
+  /**
+   * The main test.
+   * @param args args.
+   */
+  public static void main(String[] args) {
     U10TeamModel testTeam2 = new U10TeamModelImpl();
     testTeam2.addPlayer("Jack", "Asaka", 2020, 3, 2, Position.DEFENDER, 4);
     testTeam2.addPlayer("John", "Wick", 2018, 3, 4, Position.FORWARD, 8);

@@ -1,13 +1,16 @@
-package U10Team;
+package soccerteam;
 
 /**
- * This is a test for the outputs,
- * since all jersey numbers are randomly assigned,
- * it's hard to do a assertEquals unit test.
+ * This is a test for the outputs, since all jersey numbers are randomly assigned, it's hard to do a
+ * assertEquals unit test.
  */
-public class testGetTeamMethod {
+public class TestGetTeamMethod {
 
-  public static void main(String[] args){
+  /**
+   * The main test.
+   * @param args args.
+   */
+  public static void main(String[] args) {
     U10TeamModel testTeam = new U10TeamModelImpl();
     testTeam.addPlayer("Jack", "Asaka", 2019, 4, 15, Position.GOALIE, 6);
     testTeam.addPlayer("Jack", "Zack", 2020, 5, 6, Position.GOALIE, 4);

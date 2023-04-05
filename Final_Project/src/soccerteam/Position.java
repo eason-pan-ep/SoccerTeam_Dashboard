@@ -1,4 +1,4 @@
-package U10Team;
+package soccerteam;
 
 import java.util.Comparator;
 
@@ -6,28 +6,25 @@ import java.util.Comparator;
  * Enum for Positions in a U10 soccer team.
  */
 public enum Position implements Comparator<Position> {
-  GOALIE(1),
-  DEFENDER(2),
-  MIDFIELDER(3),
-  FORWARD(4);
+  GOALIE(1), DEFENDER(2), MIDFIELDER(3), FORWARD(4);
 
   private final int order;
 
-  Position(int order){
+  Position(int order) {
     this.order = order;
   }
 
   /**
    * get the order of this Position.
+   *
    * @return an int represents the order of the Position for comparison.
    */
-  public int getOrder(){
+  public int getOrder() {
     return this.order;
   }
 
-  @Override
-  public String toString(){
-    switch (this){
+  @Override public String toString() {
+    switch (this) {
       case GOALIE:
         return "Goalie";
       case DEFENDER:
