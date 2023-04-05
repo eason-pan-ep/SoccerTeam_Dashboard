@@ -59,7 +59,7 @@ public interface U10TeamModel {
    * in the formation of 1-2-3-1.
    * Users may form again when they added new Players.
    * The logic to pick starting lineup players:
-   *    1. consider their preferred position, fill all team member meet the requirement, sort by skill level;
+   *    1. consider their preferred position, fill all team member meet their preferences, sort by skill level;
    *    2. if there are more than needed in a Position,
    *          remove extras from the tail;
    *    3. if there are Positions don't have enough players,
