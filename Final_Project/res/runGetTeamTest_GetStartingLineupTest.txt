@@ -1,0 +1,8 @@
+For running two get Table-like output test (TestGetStartingLineupMethod, TestGetTeamMethod), you can treat it as running two main drivers. 
+Make sure you have Java 11 installed.
+	1. in any empty Java project, create a package called "soccerteam";
+	2. copy everything in res, src, test to res, src, test folders in the project;
+	3. run TestGetStartingLineupMethod, TestGetTeamMethod.
+
+
+Feel free to reach out if there is any issues while running these tests via pan.yuc@northeastern.edu.

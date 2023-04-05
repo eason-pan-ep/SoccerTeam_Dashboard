@@ -1,0 +1,8 @@
+For running regular tests (PlayerImplTest, PositionTest, U10TeamModelImplTest), make sure you have JUnit 4 and Java 11 installed.
+	1. in an empty Java project, create a package called "soccerteam";
+	2. copy all files in res, src, test to res, src, test in the Java project;
+	3. Run PlayerImplTest, PositionTest, U10TeamModelImplTest.
+
+
+
+Feel free to reach out if there is any confuses running tests via pan.yuc@northeastern.edu
