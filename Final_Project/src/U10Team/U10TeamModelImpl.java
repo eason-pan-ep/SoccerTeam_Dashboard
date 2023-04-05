@@ -232,16 +232,12 @@ public class U10TeamModelImpl implements U10TeamModel {
     outputTable.format("-----------------------------------------------------\n");
     outputTable.format("%16s %16s %16s\n", "Position", "Player Name", "Jersey Number");
     outputTable.format("-----------------------------------------------------\n");
-
     for(Position i : this.startingLineup.keySet()){
       for(Player j : this.startingLineup.get(i)) {
         outputTable.format("%16s %16s %10d\n", i.toString(), j.getName(), this.getJerseyNumber(j));
       }
     }
     return outputTable.toString();
-
   }
-
-
 }
 

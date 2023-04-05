@@ -23,4 +23,30 @@ public class PositionTest {
     assertEquals("Goalie, Defender, Midfielder, Forward, ", output.toString());
   }
 
+  /**
+   * Test Position Order value is correct.
+   */
+  @Test
+  public void testPositionGetOrder(){
+    Position[] orderTest = {Position.GOALIE, Position.DEFENDER, Position.MIDFIELDER, Position.FORWARD};
+    String testOutput = "";
+    for(Position i : orderTest){
+      testOutput += String.format("%d, ", i.getOrder());
+    }
+    assertEquals("1, 2, 3, 4, ", testOutput);
+  }
+
+  /**
+   * Test the correctness of compare() Override.
+   */
+  @Test
+  public void testPositionCompareCorrectness(){
+    Position test1 = Position.GOALIE;
+    Position test2 = Position.FORWARD;
+    Position test3 = Position.GOALIE;
+
+    assertEquals(0, test1.compare(test1, test3));
+    assertEquals(-1, test1.compare(test1, test2));
+  }
+
 }
