@@ -143,6 +143,15 @@ public class U10TeamModelImplTest {
     assertEquals("This is an empty team.", this.testTeam.getTeam());
   }
 
+  /**
+   * Test form a starting lineup before a team is created.
+   */
+  @Test(expected = IllegalStateException.class)
+  public void testFormStartingLineupBeforeCreateTeam(){
+    this.addMultiplePlayer(10);
+    this.testTeam.formStartingLineup();
+  }
+
 
 
 

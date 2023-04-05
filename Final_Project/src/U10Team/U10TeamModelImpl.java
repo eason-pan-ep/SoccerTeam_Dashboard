@@ -227,20 +227,18 @@ public class U10TeamModelImpl implements U10TeamModel {
 
 
   @Override public String getStartingLineup() {
-    String output = "Starting Lineup: \n";
+    Formatter outputTable = new Formatter();
+    outputTable.format("%34s\n", "Starting Lineup");
+    outputTable.format("-----------------------------------------------------\n");
+    outputTable.format("%16s %16s %16s\n", "Position", "Player Name", "Jersey Number");
+    outputTable.format("-----------------------------------------------------\n");
+
     for(Position i : this.startingLineup.keySet()){
       for(Player j : this.startingLineup.get(i)) {
-        output += String.format("Position: %s, Name: %s, Jersey Number: %d, Skill Level: %d, Preferred Position: %s\n", i.toString(), j.getName(), this.getJerseyNumber(j), j.getPlayerSkillLevel(), j.getPreferredPosition());
+        outputTable.format("%16s %16s %10d\n", i.toString(), j.getName(), this.getJerseyNumber(j));
       }
     }
-
-
-    output += "\n";
-    output += "Bench Player: \n";
-    for(Player i : this.benchPlayer){
-      output += String.format("Name: %s, Jersey Number: %d, Skill Level: %d, Preferred Position: %s\n", i.getName(), this.getJerseyNumber(i), i.getPlayerSkillLevel(), i.getPreferredPosition());
-    }
-    return output;
+    return outputTable.toString();
 
   }
 
