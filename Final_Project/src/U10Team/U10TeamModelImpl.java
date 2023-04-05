@@ -10,10 +10,10 @@ import java.util.TreeMap;
 
 public class U10TeamModelImpl implements U10TeamModel {
   private boolean teamFormed;
-  private List<Integer> availableJerseyNumber;
-  private Map<Position, List<Player>> startingLineup;
-  private Map<Integer, Player> teamMember;
-  private List<Player> benchPlayer;
+  private final List<Integer> availableJerseyNumber;
+  private final Map<Position, List<Player>> startingLineup;
+  private final Map<Integer, Player> teamMember;
+  private final List<Player> benchPlayer;
 
 
   public U10TeamModelImpl(){
