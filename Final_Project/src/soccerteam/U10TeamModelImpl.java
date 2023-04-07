@@ -124,21 +124,20 @@ public class U10TeamModelImpl implements U10TeamModel {
     outputFormatter.format("%19s %19s\n", "Player Name", "Jersey Number");
     outputFormatter.format("-----------------------------------------------------\n");
 
-    List<Player> allPlayers = this.sortTeamByLastName();
+    List<Player> allPlayers = new ArrayList<Player>(this.teamMember.values());
+    this.sortListByLastName(allPlayers);
     for (Player i : allPlayers) {
       outputFormatter.format("%19s %16d\n", i.getName(), this.getJerseyNumber(i));
     }
     return outputFormatter.toString();
   }
 
-  private List<Player> sortTeamByLastName() {
-    ArrayList<Player> allTeamMember = new ArrayList<Player>(this.teamMember.values());
-    allTeamMember.sort(new Comparator<Player>() {
+  private void sortListByLastName(List<Player> sortingList) {
+    sortingList.sort(new Comparator<Player>() {
       @Override public int compare(Player o1, Player o2) {
         return o1.getLastName().compareToIgnoreCase(o2.getLastName());
       }
     });
-    return allTeamMember;
   }
 
   /**
@@ -174,6 +173,10 @@ public class U10TeamModelImpl implements U10TeamModel {
 
     this.moveTailsToBench();
     this.fillSpots();
+
+    for (List<Player> i : this.startingLineup.values()) {
+      this.sortListByLastName(i);
+    }
 
   }
 
