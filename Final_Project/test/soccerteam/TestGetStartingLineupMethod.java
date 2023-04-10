@@ -25,8 +25,16 @@ public class TestGetStartingLineupMethod {
     testTeam2.addPlayer("Bill", "Gates", 2017, 10, 3, Position.FORWARD, 5);
     testTeam2.createTeam();
     testTeam2.formStartingLineup();
-
     System.out.println(testTeam2.getStartingLineup());
+
+
+    testTeam2.addPlayer("UTF", "Names", 2014, 9, 11, Position.MIDFIELDER, 9);
+    testTeam2.formStartingLineup();
+    System.out.println("Add one more player and re-form.\n");
+    System.out.println(testTeam2.getStartingLineup());
+
+
+
   }
 
 }
