@@ -10,6 +10,7 @@ public class U10TeamFrameController implements U10TeamFeatures {
     }
     @Override
     public void initializeProgram() {
+        this.view.addFeatures(this);
         System.out.println("It runs.");
     }
 
