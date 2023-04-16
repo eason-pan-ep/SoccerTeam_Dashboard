@@ -1,19 +1,22 @@
 package soccerteam;
 
 public interface U10TeamView {
-    void addFeatures(U10TeamFeatures features);
+  int TEXT_INPUT_WIDTH = 21;
 
-    void displayTeamSize(int teamSize);
+  void addFeatures(U10TeamFeatures features);
 
-    void displayTeamStatus(String creationStatus);
+  void displayTeamSize(int teamSize);
 
-    void displayStartingLineupStatus(String startingLineupStatus);
+  void displayTeamStatus(String creationStatus);
 
-    void clearNewPlayerInput();
+  void displayStartingLineupStatus(String startingLineupStatus);
 
-    void clearRemovePlayerInput();
+  void clearNewPlayerInput();
 
-    void displayStartingLineupList(String startingLineupList);
+  void clearRemovePlayerInput();
 
-    void displayTeamList(String teamList);
+  void displayStartingLineupList(String startingLineupList);
+
+  void displayTeamList(String teamList);
+  void addNewNumberToRemoveList(int newNumber);
 }

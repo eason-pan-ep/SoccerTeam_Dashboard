@@ -1,5 +1,7 @@
 package soccerteam;
 
+import com.sun.source.tree.Tree;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Formatter;
@@ -17,7 +19,7 @@ public class U10TeamModelImpl implements U10TeamModel {
   private boolean teamFormed;
   private final List<Integer> availableJerseyNumber;
   private final Map<Position, List<Player>> startingLineup;
-  private final Map<Integer, Player> teamMember;
+  private final TreeMap<Integer, Player> teamMember;
   private final List<Player> benchPlayer;
 
   /**
@@ -94,6 +96,11 @@ public class U10TeamModelImpl implements U10TeamModel {
 
   @Override public int getSize() {
     return this.teamMember.size();
+  }
+
+  @Override
+  public int getLastAddedPlayerNumber() {
+    return this.teamMember.lastKey();
   }
 
   /**

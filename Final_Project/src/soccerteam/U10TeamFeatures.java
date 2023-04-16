@@ -18,6 +18,7 @@ public interface U10TeamFeatures {
     void updateTeamList();
 
     void updateStaringLineupList();
+    void updateRemoveList();
 
     void exitApp();
 }
