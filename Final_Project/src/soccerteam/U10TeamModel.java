@@ -51,21 +51,9 @@ public interface U10TeamModel {
    * Get a list-like string with every Player in the team with the information of the Player's first
    * name, last name, jersey number. This List is sorted in alphabetical order (last name).
    *
-   * @return a list-like string contains the information described above.
-   *     Here is a sample output:
-   *                       All Team Member
-   *     -----------------------------------------------------
-   *             Player Name       Jersey Number
-   *     -----------------------------------------------------
-   *              Jack Asaka               12
-   *              Jack Black               20
-   *                Jack Cat                8
-   *               Jack Duke                2
-   *             Jack Harmon               13
-   *              Jack Vyoge               17
-   *               Jack Zack               11
+   * @return a 2D String array in team[i], it looks like {Name, Number}.
    */
-  String getTeam();
+  String[][] getTeam();
 
   /**
    * Form a 7 people starting lineup, in the formation of 1-2-3-1. Users may form again when they
@@ -110,4 +98,5 @@ public interface U10TeamModel {
    * @return the jersey number of the last added player.
    */
   int getLastAddedPlayerNumber();
+
 }

@@ -18,7 +18,9 @@ public interface U10TeamFeatures {
     void updateTeamList();
 
     void updateStaringLineupList();
-    void updateRemoveList();
+    void updateTeamSize();
+
+    void updateAddPlayerWarnings(String addPlayerWarning);
 
     void exitApp();
 }

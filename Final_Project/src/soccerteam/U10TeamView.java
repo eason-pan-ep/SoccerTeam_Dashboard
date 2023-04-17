@@ -2,6 +2,8 @@ package soccerteam;
 
 public interface U10TeamView {
   int TEXT_INPUT_WIDTH = 21;
+  String[] TEAM_LIST_HEADING = {"Player Name", "Jersey Number"};
+  String[] STARTING_LINEUP_HEADING = {"Position", "Player Name", "Jersey Number"};
 
   void addFeatures(U10TeamFeatures features);
 
@@ -15,8 +17,10 @@ public interface U10TeamView {
 
   void clearRemovePlayerInput();
 
-  void displayStartingLineupList(String startingLineupList);
+  void displayStartingLineupList(String[][] startingLineupList);
 
-  void displayTeamList(String teamList);
-  void addNewNumberToRemoveList(int newNumber);
+  void displayTeamList(String[][] teamList);
+
+  void displayAddPlayerWarnings(String addPlayerWarning);
+  public void displayAddedNotice();
 }

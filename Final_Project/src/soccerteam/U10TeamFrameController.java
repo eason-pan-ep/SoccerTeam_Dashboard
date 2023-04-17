@@ -12,11 +12,20 @@ public class U10TeamFrameController implements U10TeamFeatures {
   @Override
   public void initializeProgram() {
     this.view.addFeatures(this);
-    System.out.println("It runs.");
+    this.updateTeamList();
   }
 
   @Override
   public void addPlayer(String firstname, String lastName, int year, int month, int day, Position preferredPosition, int skillLevel) {
+    try {
+      this.model.addPlayer(firstname, lastName, year, month, day, preferredPosition, skillLevel);
+      this.updateTeamList();
+      this.view.clearNewPlayerInput();
+      this.view.displayAddedNotice();
+      this.updateTeamSize();
+    } catch (IllegalArgumentException | IllegalStateException | NullPointerException e) {
+      this.updateAddPlayerWarnings(e.getMessage());
+    }
 
   }
 
@@ -47,6 +56,8 @@ public class U10TeamFrameController implements U10TeamFeatures {
 
   @Override
   public void updateTeamList() {
+    String[][] teamList = this.model.getTeam();
+    this.view.displayTeamList(teamList);
 
   }
 
@@ -56,9 +67,18 @@ public class U10TeamFrameController implements U10TeamFeatures {
   }
 
   @Override
-  public void updateRemoveList(){
+  public void updateTeamSize() {
+    int teamSize = this.model.getSize();
+    this.view.displayTeamSize(teamSize);
+  }
 
-  };
+
+  @Override
+  public void updateAddPlayerWarnings(String addPlayerWarning) {
+    this.view.displayAddPlayerWarnings(addPlayerWarning);
+  }
+
+  ;
 
   @Override
   public void exitApp() {

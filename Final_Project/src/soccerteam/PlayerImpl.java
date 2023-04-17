@@ -47,6 +47,9 @@ public class PlayerImpl implements Player {
     if (skillLevel < 0 || skillLevel > 10) {
       throw new IllegalArgumentException("Out of skill level range.");
     }
+    if(firstName.isBlank() || lastName.isBlank()){
+      throw new IllegalArgumentException("Please enter the player's name.");
+    }
     this.firstName = firstName;
     this.lastName = lastName;
     this.yearOfBirth = yearOfBirth;

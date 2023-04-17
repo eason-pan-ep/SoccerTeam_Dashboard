@@ -53,7 +53,7 @@ public class U10TeamModelImpl implements U10TeamModel {
       int assignedJerseyNumber = this.assignJerseyNumber();
       this.teamMember.put(assignedJerseyNumber, newPlayer);
     } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException("Invalid input, %s\n.", e);
+      throw new IllegalArgumentException(String.format("Invalid input, %s\n", e.getMessage()));
     }
   }
 
@@ -121,22 +121,24 @@ public class U10TeamModelImpl implements U10TeamModel {
     this.teamFormed = true;
   }
 
-  @Override public String getTeam() {
+  @Override public String[][] getTeam() {
     if (0 == this.getSize()) {
-      return "This is an empty team.";
+      String[][] teamArray = new String[1][2];
+      teamArray[0][0] = "";
+      teamArray[0][1] = "";
+      return teamArray;
     }
-    Formatter outputFormatter = new Formatter();
-    outputFormatter.format("%34s", "All Team Member\n");
-    outputFormatter.format("-----------------------------------------------------\n");
-    outputFormatter.format("%19s %19s\n", "Player Name", "Jersey Number");
-    outputFormatter.format("-----------------------------------------------------\n");
+
 
     List<Player> allPlayers = new ArrayList<Player>(this.teamMember.values());
     this.sortListByLastName(allPlayers);
-    for (Player i : allPlayers) {
-      outputFormatter.format("%19s %16d\n", i.getName(), this.getJerseyNumber(i));
+    String[][] teamArray = new String[this.teamMember.size()][2];
+    for(int i = 0; i < this.teamMember.size(); i++){
+      teamArray[i][0] = allPlayers.get(i).getName();
+      teamArray[i][1] = String.format("%d", this.getJerseyNumber(allPlayers.get(i)));
     }
-    return outputFormatter.toString();
+
+    return teamArray;
   }
 
   private void sortListByLastName(List<Player> sortingList) {

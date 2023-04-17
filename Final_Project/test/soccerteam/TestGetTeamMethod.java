@@ -1,5 +1,7 @@
 package soccerteam;
 
+import java.util.Arrays;
+
 /**
  * This is a test for the outputs, since all jersey numbers are randomly assigned, it's hard to do a
  * assertEquals unit test.
@@ -20,6 +22,6 @@ public class TestGetTeamMethod {
     testTeam.addPlayer("Jack", "Duke", 2020, 6, 4, Position.GOALIE, 3);
     testTeam.addPlayer("Jack", "Vyoge", 2016, 7, 8, Position.GOALIE, 8);
 
-    System.out.println(testTeam.getTeam());
+    System.out.println(Arrays.deepToString(testTeam.getTeam()));
   }
 }

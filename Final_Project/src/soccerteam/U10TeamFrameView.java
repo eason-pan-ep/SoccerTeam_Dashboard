@@ -3,8 +3,12 @@ package soccerteam;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class U10TeamFrameView extends JFrame implements U10TeamView {
 
@@ -19,11 +23,14 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
 
   // Components for Starting Lineup Section
   JPanel lineupPanel;
-  JLabel displayStartingLineupList;
+  JScrollPane startingLineupContainer;
+  JTable displayStartingLineupList;
 
   // Components for Team Member Section
   JPanel teamMemberPanel;
-  JLabel displayTeamMemberList;
+  String[][] teamMemberData;
+  JScrollPane teamMemberContainer;
+  JTable displayTeamMemberList;
 
   // Components for New Player
   JPanel newPlayerPanel;
@@ -35,18 +42,19 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
   JTextField firstNameInput;
   JTextField lastNameInput;
   JPanel dateOfBirthDropPanel;
-  JComboBox yearDropdown;
-  JComboBox monthDropdown;
-  JComboBox dayDropdown;
-  JComboBox positionDropdown;
+  JComboBox<Integer> yearDropdown;
+  JComboBox<Integer> monthDropdown;
+  JComboBox<Integer> dayDropdown;
+  JComboBox<Position> positionDropdown;
   JSlider skillLevelSlider;
   JButton discardButton;
   JButton addPlayerButton;
+  JLabel addPlayerWarnings;
 
   // Component for Team Management Section
   JPanel teamManagementPanel;
   JLabel removePlayerLabel;
-  JComboBox jerseyNumberDropdown;
+  JComboBox<Integer> jerseyNumberDropdown;
   JButton removePlayerButton;
   JButton createTeamButton;
   JButton formLineupButton;
@@ -112,6 +120,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
 
     this.add(this.overviewPanel, overviewGrid);
 
+
     // Set up Starting Lineup Section
     GridBagConstraints lineupGrid = new GridBagConstraints();
     lineupGrid.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -119,15 +128,17 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     lineupGrid.gridy = 1;
     lineupGrid.fill = GridBagConstraints.HORIZONTAL;
 
-
     this.lineupPanel = new JPanel(new BorderLayout());
-    this.lineupPanel.setSize(new Dimension(300, 200));
     TitledBorder lineupBoarder = new TitledBorder(sectionBoarder, "Starting Lineup");
     lineupBoarder.setTitleFont(panelTitleFont);
     this.lineupPanel.setBorder(lineupBoarder);
 
-    this.displayStartingLineupList = new JLabel("Not available at this moment");
-    this.lineupPanel.add(this.displayStartingLineupList, BorderLayout.CENTER);
+    String[][] initialStaringLineupDisplay = {{"", "", ""}};
+    this.displayStartingLineupList = new JTable(initialStaringLineupDisplay, STARTING_LINEUP_HEADING);
+    this.displayStartingLineupList.getTableHeader().setFont(contentTitleFont);
+    this.startingLineupContainer = new JScrollPane(this.displayStartingLineupList);
+    this.startingLineupContainer.setPreferredSize(new Dimension(300, 120));
+    this.lineupPanel.add(this.startingLineupContainer, BorderLayout.CENTER);
 
     this.add(this.lineupPanel, lineupGrid);
 
@@ -144,8 +155,12 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     teamMemberBoarder.setTitleFont(panelTitleFont);
     this.teamMemberPanel.setBorder(teamMemberBoarder);
 
-    this.displayTeamMemberList = new JLabel("");
-    this.teamMemberPanel.add(this.displayTeamMemberList);
+    this.teamMemberData = new String[20][2];
+    this.displayTeamMemberList = new JTable(new DefaultTableModel(this.teamMemberData, TEAM_LIST_HEADING));
+    this.displayTeamMemberList.getTableHeader().setFont(contentTitleFont);
+    this.teamMemberContainer = new JScrollPane(this.displayTeamMemberList);
+    this.teamMemberContainer.setPreferredSize(new Dimension(300, 300));
+    this.teamMemberPanel.add(this.teamMemberContainer);
 
     this.add(this.teamMemberPanel, teamMemberGrid);
 
@@ -219,7 +234,6 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
       years[i] = years[i - 1] + 1;
     }
     this.yearDropdown = new JComboBox<Integer>(years);
-    this.yearDropdown.setSelectedItem(null);
 
     this.dateOfBirthDropPanel.add(this.yearDropdown);
     //set month dropdown
@@ -228,7 +242,6 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
       months[i] = i + 1;
     }
     this.monthDropdown = new JComboBox<Integer>(months);
-    this.monthDropdown.setSelectedItem(null);
     this.dateOfBirthDropPanel.add(this.monthDropdown);
     //set day dropdown
     Integer[] days = new Integer[31];
@@ -236,7 +249,6 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
       days[i] = i + 1;
     }
     this.dayDropdown = new JComboBox<Integer>(days);
-    this.dayDropdown.setSelectedItem(null);
     this.dateOfBirthDropPanel.add(this.dayDropdown);
     this.newPlayerPanel.add(this.dateOfBirthDropPanel, birthInputGrid);
 
@@ -254,7 +266,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     positionInputGrid.gridy = 3;
     positionInputGrid.anchor = GridBagConstraints.FIRST_LINE_START;
     this.positionDropdown = new JComboBox<Position>(Position.values());
-    this.positionDropdown.setSelectedItem(null);
+    this.positionDropdown.setSelectedItem(Position.class);
     this.newPlayerPanel.add(this.positionDropdown, positionInputGrid);
 
     // Skill Level Part
@@ -280,10 +292,20 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     this.skillLevelSlider.setPreferredSize(new Dimension(270, 40));
     this.newPlayerPanel.add(this.skillLevelSlider, skillInputGrid);
 
+    // set warnings
+    GridBagConstraints warningsGrid = new GridBagConstraints();
+    warningsGrid.gridx = 0;
+    warningsGrid.gridy = 5;
+    warningsGrid.gridwidth = 2;
+    warningsGrid.anchor = GridBagConstraints.WEST;
+    warningsGrid.insets = new Insets(5, 0, 5, 0);
+    this.addPlayerWarnings = new JLabel(" *Please fill all the fields");
+    this.newPlayerPanel.add(this.addPlayerWarnings, warningsGrid);
+
     // set 2 buttons
     GridBagConstraints discardGrid = new GridBagConstraints();
     discardGrid.gridx = 0;
-    discardGrid.gridy = 5;
+    discardGrid.gridy = 6;
     discardGrid.anchor = GridBagConstraints.WEST;
     discardGrid.insets = new Insets(20, 0, 0, 0);
     this.discardButton = new JButton("Discard");
@@ -292,7 +314,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
 
     GridBagConstraints addButtonGrid = new GridBagConstraints();
     addButtonGrid.gridx = 1;
-    addButtonGrid.gridy = 5;
+    addButtonGrid.gridy = 6;
     addButtonGrid.anchor = GridBagConstraints.EAST;
     addButtonGrid.insets = new Insets(20, 0, 0, 0);
     this.addPlayerButton = new JButton("Add Player");
@@ -306,6 +328,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     GridBagConstraints teamManagementGrid = new GridBagConstraints();
     teamManagementGrid.gridx = 1;
     teamManagementGrid.gridy = 2;
+    teamManagementGrid.anchor = GridBagConstraints.NORTHWEST;
     teamManagementGrid.fill = GridBagConstraints.HORIZONTAL;
 
     this.teamManagementPanel = new JPanel(new GridBagLayout());
@@ -325,8 +348,11 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     removeNumberGrid.gridx = 1;
     removeNumberGrid.gridy = 0;
     Integer[] removeList = new Integer[20];
+    for(int i = 0; i < 20; i++){
+      removeList[i] = i+1;
+    }
     this.jerseyNumberDropdown = new JComboBox<Integer>(removeList);
-    this.jerseyNumberDropdown.setSelectedItem(null);
+    this.jerseyNumberDropdown.setSelectedItem(0);
     this.teamManagementPanel.add(this.jerseyNumberDropdown, removeNumberGrid);
 
     GridBagConstraints removeButtonGrid = new GridBagConstraints();
@@ -377,12 +403,14 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
 
   @Override
   public void addFeatures(U10TeamFeatures features) {
+      this.addPlayerButton.addActionListener(evt -> features.addPlayer(this.firstNameInput.getText(), this.lastNameInput.getText(), (Integer) this.yearDropdown.getSelectedItem(), (Integer) this.monthDropdown.getSelectedItem(), (Integer) this.dayDropdown.getSelectedItem(), (Position) this.positionDropdown.getSelectedItem(), this.skillLevelSlider.getValue()));
+
 
   }
 
   @Override
   public void displayTeamSize(int teamSize) {
-
+    this.displayTeamSize.setText(String.format("%d/20", teamSize));
   }
 
   @Override
@@ -397,7 +425,13 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
 
   @Override
   public void clearNewPlayerInput() {
-
+    this.firstNameInput.setText("");
+    this.lastNameInput.setText("");
+    this.yearDropdown.setSelectedIndex(0);
+    this.monthDropdown.setSelectedIndex(0);
+    this.dayDropdown.setSelectedIndex(0);
+    this.positionDropdown.setSelectedIndex(0);
+    this.skillLevelSlider.setValue(0);
   }
 
   @Override
@@ -406,17 +440,29 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
   }
 
   @Override
-  public void displayStartingLineupList(String startingLineupList) {
+  public void displayStartingLineupList(String[][] startingLineupList) {
 
   }
 
   @Override
-  public void displayTeamList(String teamList) {
+  public void displayTeamList(String[][] teamList) {
+    this.teamMemberData = teamList.clone();
+    DefaultTableModel teamMemberTableModel = (DefaultTableModel) this.displayTeamMemberList.getModel();
+    teamMemberTableModel.setDataVector(this.teamMemberData, TEAM_LIST_HEADING);
+    teamMemberTableModel.fireTableDataChanged();
+
 
   }
 
   @Override
-  public void addNewNumberToRemoveList(int newNumber) {
+  public void displayAddPlayerWarnings(String addPlayerWarning) {
+    this.addPlayerWarnings.setForeground(Color.RED);
+    this.addPlayerWarnings.setText(addPlayerWarning);
+  }
 
+  @Override
+  public void displayAddedNotice(){
+    this.addPlayerWarnings.setForeground(Color.BLUE);
+    this.addPlayerWarnings.setText(" Player added.");
   }
 }
