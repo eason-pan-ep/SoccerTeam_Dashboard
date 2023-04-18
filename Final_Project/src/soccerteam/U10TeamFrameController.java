@@ -1,5 +1,9 @@
 package soccerteam;
 
+/**
+ * The implementation of U10Team Controller Interface.
+ * This serves as a controller connects the view and the model.
+ */
 public class U10TeamFrameController implements U10TeamFeatures {
   U10TeamModel model;
   U10TeamView view;
@@ -16,7 +20,8 @@ public class U10TeamFrameController implements U10TeamFeatures {
   }
 
   @Override
-  public void addPlayer(String firstname, String lastName, int year, int month, int day, Position preferredPosition, int skillLevel) {
+  public void addPlayer(String firstname, String lastName, int year, int month, int day,
+                        Position preferredPosition, int skillLevel) {
     try {
       this.model.addPlayer(firstname, lastName, year, month, day, preferredPosition, skillLevel);
       this.updateTeamList();
@@ -31,14 +36,14 @@ public class U10TeamFrameController implements U10TeamFeatures {
 
   @Override
   public void updateTeamStatus(boolean creationStatus) {
-    if(creationStatus){
+    if (creationStatus) {
       this.view.displayTeamStatus("Established");
     }
   }
 
   @Override
   public void updateStartingLineupStatus(boolean staringLineupStatus) {
-    if(staringLineupStatus){
+    if (staringLineupStatus) {
       this.view.displayStartingLineupStatus("Formed");
     }
   }
@@ -50,7 +55,7 @@ public class U10TeamFrameController implements U10TeamFeatures {
       this.updateTeamList();
       this.updateTeamSize();
       this.view.displayTeamManagementNotice(" Player Removed.");
-    }catch (IllegalArgumentException | IllegalStateException e){
+    } catch (IllegalArgumentException | IllegalStateException e) {
       this.updateTeamManagementWarnings(e.getMessage());
     }
 
@@ -58,11 +63,11 @@ public class U10TeamFrameController implements U10TeamFeatures {
 
   @Override
   public void createTeam() {
-    try{
+    try {
       this.model.createTeam();
       this.updateTeamStatus(true);
       this.view.displayTeamManagementNotice("Team Established");
-    }catch (IllegalStateException e){
+    } catch (IllegalStateException e) {
       this.updateTeamManagementWarnings(e.getMessage());
     }
 
@@ -70,13 +75,13 @@ public class U10TeamFrameController implements U10TeamFeatures {
 
   @Override
   public void formStartingLineup() {
-    try{
+    try {
       this.model.formStartingLineup();
       String[][] startingLineup = this.model.getStartingLineup();
       this.updateStartingLineupStatus(true);
       this.view.displayStartingLineupList(startingLineup);
       this.view.displayTeamManagementNotice("Starting Lineup formed");
-    }catch (IllegalStateException e){
+    } catch (IllegalStateException e) {
       this.updateTeamManagementWarnings(e.getMessage());
     }
   }
@@ -85,11 +90,6 @@ public class U10TeamFrameController implements U10TeamFeatures {
   public void updateTeamList() {
     String[][] teamList = this.model.getTeam();
     this.view.displayTeamList(teamList);
-
-  }
-
-  @Override
-  public void updateStaringLineupList() {
 
   }
 

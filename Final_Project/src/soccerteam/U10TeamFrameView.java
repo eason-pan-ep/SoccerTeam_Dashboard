@@ -1,12 +1,30 @@
 package soccerteam;
 
-import javax.swing.*;
-import javax.swing.border.LineBorder;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.time.LocalDate;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.time.LocalDate;
 
+/**
+ * Implementation of U10Team View.
+ * Using Java Swing JFrame library.
+ */
 public class U10TeamFrameView extends JFrame implements U10TeamView {
 
   // Components for Overview Section
@@ -62,11 +80,12 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
   JButton exitButton;
 
 
-
-
+  /**
+   * The constructor of the view.
+   * @param appName app name.
+   */
   public U10TeamFrameView(String appName) {
     super(appName);
-
 
 
     this.setSize(new Dimension(1000, 400));
@@ -75,12 +94,6 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
 
     this.setLayout(new GridBagLayout());
     this.setMinimumSize(new Dimension(830, 550));
-
-
-
-    // Set Section Boarder Style
-    LineBorder sectionBoarder = new LineBorder(Color.LIGHT_GRAY, 1, true);
-
 
     // Set up Overview Section.
     GridBagConstraints overviewGrid = new GridBagConstraints();
@@ -93,7 +106,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     overviewLayout.setHgap(10);
 
     this.overviewPanel = new JPanel(overviewLayout);
-    TitledBorder overViewBoarder = new TitledBorder(sectionBoarder, "Overview");
+    TitledBorder overViewBoarder = new TitledBorder(SECTION_BORDER, "Overview");
     overViewBoarder.setTitleFont(PANEL_TITLE_FONT);
     this.overviewPanel.setBorder(overViewBoarder);
 
@@ -127,14 +140,16 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     lineupGrid.fill = GridBagConstraints.HORIZONTAL;
 
     this.lineupPanel = new JPanel(new BorderLayout());
-    TitledBorder lineupBoarder = new TitledBorder(sectionBoarder, "Starting Lineup");
+    TitledBorder lineupBoarder = new TitledBorder(SECTION_BORDER, "Starting Lineup");
     lineupBoarder.setTitleFont(PANEL_TITLE_FONT);
     this.lineupPanel.setBorder(lineupBoarder);
 
 
     this.startingLineupData = new String[7][3];
     this.displayStartingLineupList = new JTable();
-    this.displayStartingLineupList.setModel(new DefaultTableModel(this.startingLineupData, STARTING_LINEUP_HEADER));
+    this.displayStartingLineupList.setModel(
+        new DefaultTableModel(this.startingLineupData, STARTING_LINEUP_HEADER)
+    );
     this.displayStartingLineupList.getTableHeader().setFont(CONTENT_TITLE_FONT);
     this.startingLineupContainer = new JScrollPane(this.displayStartingLineupList);
     this.startingLineupContainer.setPreferredSize(new Dimension(300, 150));
@@ -154,12 +169,14 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     teamMemberGrid.fill = GridBagConstraints.HORIZONTAL;
 
     this.teamMemberPanel = new JPanel(new BorderLayout());
-    TitledBorder teamMemberBoarder = new TitledBorder(sectionBoarder, "Team Members");
+    TitledBorder teamMemberBoarder = new TitledBorder(SECTION_BORDER, "Team Members");
     teamMemberBoarder.setTitleFont(PANEL_TITLE_FONT);
     this.teamMemberPanel.setBorder(teamMemberBoarder);
 
     this.teamMemberData = new String[20][2];
-    this.displayTeamMemberList = new JTable(new DefaultTableModel(this.teamMemberData, TEAM_LIST_HEADER));
+    this.displayTeamMemberList = new JTable(
+        new DefaultTableModel(this.teamMemberData, TEAM_LIST_HEADER)
+    );
     this.displayTeamMemberList.getTableHeader().setFont(CONTENT_TITLE_FONT);
     this.teamMemberContainer = new JScrollPane(this.displayTeamMemberList);
     this.teamMemberContainer.setPreferredSize(new Dimension(300, 200));
@@ -178,7 +195,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     newPlayerGrid.insets = new Insets(5, 5, 10, 10);
 
     this.newPlayerPanel = new JPanel(new GridBagLayout());
-    TitledBorder newPlayerBoarder = new TitledBorder(sectionBoarder, "New Player");
+    TitledBorder newPlayerBoarder = new TitledBorder(SECTION_BORDER, "New Player");
     newPlayerBoarder.setTitleFont(PANEL_TITLE_FONT);
     this.newPlayerPanel.setBorder(newPlayerBoarder);
     this.newPlayerPanel.setPreferredSize(new Dimension(440, 279));
@@ -338,7 +355,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     //teamManagementGrid.fill = GridBagConstraints.HORIZONTAL;
 
     this.teamManagementPanel = new JPanel(new GridBagLayout());
-    TitledBorder teamManagementBoarder = new TitledBorder(sectionBoarder, "Team Management");
+    TitledBorder teamManagementBoarder = new TitledBorder(SECTION_BORDER, "Team Management");
     teamManagementBoarder.setTitleFont(PANEL_TITLE_FONT);
     this.teamManagementPanel.setBorder(teamManagementBoarder);
     this.teamManagementPanel.setPreferredSize(new Dimension(440, 140));
@@ -355,8 +372,8 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     removeNumberGrid.gridx = 1;
     removeNumberGrid.gridy = 0;
     Integer[] removeList = new Integer[20];
-    for(int i = 0; i < 20; i++){
-      removeList[i] = i+1;
+    for (int i = 0; i < 20; i++) {
+      removeList[i] = i + 1;
     }
     this.jerseyNumberDropdown = new JComboBox<Integer>(removeList);
     this.jerseyNumberDropdown.setSelectedItem(0);
@@ -420,12 +437,21 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
 
   @Override
   public void addFeatures(U10TeamFeatures features) {
-      this.addPlayerButton.addActionListener(evt -> features.addPlayer(this.firstNameInput.getText(), this.lastNameInput.getText(), (Integer) this.yearDropdown.getSelectedItem(), (Integer) this.monthDropdown.getSelectedItem(), (Integer) this.dayDropdown.getSelectedItem(), (Position) this.positionDropdown.getSelectedItem(), this.skillLevelSlider.getValue()));
-      this.discardButton.addActionListener(evt -> this.clearNewPlayerInput());
-      this.removePlayerButton.addActionListener(evt -> features.removePlayer((Integer) this.jerseyNumberDropdown.getSelectedItem()));
-      this.createTeamButton.addActionListener(evt -> features.createTeam());
-      this.formLineupButton.addActionListener(evt -> features.formStartingLineup());
-      this.exitButton.addActionListener(evt -> features.exitApp());
+    this.addPlayerButton.addActionListener(
+        evt -> features.addPlayer(this.firstNameInput.getText(), this.lastNameInput.getText(),
+            (Integer) this.yearDropdown.getSelectedItem(),
+            (Integer) this.monthDropdown.getSelectedItem(),
+            (Integer) this.dayDropdown.getSelectedItem(),
+            (Position) this.positionDropdown.getSelectedItem(),
+            this.skillLevelSlider.getValue()))
+    ;
+    this.discardButton.addActionListener(evt -> this.clearNewPlayerInput());
+    this.removePlayerButton.addActionListener(
+        evt -> features.removePlayer((Integer) this.jerseyNumberDropdown.getSelectedItem())
+    );
+    this.createTeamButton.addActionListener(evt -> features.createTeam());
+    this.formLineupButton.addActionListener(evt -> features.formStartingLineup());
+    this.exitButton.addActionListener(evt -> features.exitApp());
   }
 
   @Override
@@ -459,7 +485,8 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
   @Override
   public void displayStartingLineupList(String[][] startingLineupList) {
     this.startingLineupData = startingLineupList;
-    DefaultTableModel startingLineupTableModel = (DefaultTableModel) this.displayStartingLineupList.getModel();
+    DefaultTableModel startingLineupTableModel =
+        (DefaultTableModel) this.displayStartingLineupList.getModel();
     startingLineupTableModel.setDataVector(this.startingLineupData, STARTING_LINEUP_HEADER);
     startingLineupTableModel.fireTableDataChanged();
   }
@@ -467,7 +494,8 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
   @Override
   public void displayTeamList(String[][] teamList) {
     this.teamMemberData = teamList.clone();
-    DefaultTableModel teamMemberTableModel = (DefaultTableModel) this.displayTeamMemberList.getModel();
+    DefaultTableModel teamMemberTableModel =
+        (DefaultTableModel) this.displayTeamMemberList.getModel();
     teamMemberTableModel.setDataVector(this.teamMemberData, TEAM_LIST_HEADER);
     teamMemberTableModel.fireTableDataChanged();
   }
@@ -479,7 +507,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
   }
 
   @Override
-  public void displayAddedNotice(){
+  public void displayAddedNotice() {
     this.addPlayerWarnings.setForeground(Color.BLUE);
     this.addPlayerWarnings.setText(" Player Added.");
   }

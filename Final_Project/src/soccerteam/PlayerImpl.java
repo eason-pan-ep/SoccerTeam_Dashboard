@@ -34,15 +34,18 @@ public class PlayerImpl implements Player {
    *                                  is less than 1 or greater than 31, when skillLevel is less
    *                                  than 0 or greater than 10.
    */
-  public PlayerImpl(String firstName, String lastName, int yearOfBirth, int monthOfBirth,
-      int dayOfBirth, Position preferredPosition, int skillLevel) throws IllegalArgumentException {
+  public PlayerImpl(String firstName, String lastName,
+                    int yearOfBirth, int monthOfBirth, int dayOfBirth,
+                    Position preferredPosition, int skillLevel) throws IllegalArgumentException {
     if (yearOfBirth < 1900 || yearOfBirth > Year.now().getValue()) {
       throw new IllegalArgumentException("Doesn't look like a human current living on Earth.");
     }
-    if(yearOfBirth == Year.now().getValue() && monthOfBirth > LocalDate.now().getMonthValue()){
+    if (yearOfBirth == Year.now().getValue() && monthOfBirth > LocalDate.now().getMonthValue()) {
       throw new IllegalArgumentException("This person seems like from the future.");
     }
-    if(yearOfBirth == Year.now().getValue() && monthOfBirth == LocalDate.now().getMonthValue() && dayOfBirth > LocalDate.now().getDayOfMonth()){
+    if (yearOfBirth == Year.now().getValue()
+        && monthOfBirth == LocalDate.now().getMonthValue()
+        && dayOfBirth > LocalDate.now().getDayOfMonth()) {
       throw new IllegalArgumentException("This person seems like from the future");
     }
     if (monthOfBirth < 1 || monthOfBirth > 12) {
@@ -54,7 +57,7 @@ public class PlayerImpl implements Player {
     if (skillLevel < 0 || skillLevel > 10) {
       throw new IllegalArgumentException("Out of skill level range.");
     }
-    if(firstName.isBlank() || lastName.isBlank()){
+    if (firstName.isBlank() || lastName.isBlank()) {
       throw new IllegalArgumentException("Please enter the player's name.");
     }
     this.firstName = firstName;
@@ -66,25 +69,30 @@ public class PlayerImpl implements Player {
     this.skillLevel = skillLevel;
   }
 
-  @Override public String getName() {
+  @Override
+  public String getName() {
     return String.format("%s %s", this.firstName, this.lastName);
   }
 
-  @Override public int getPlayerAge() {
+  @Override
+  public int getPlayerAge() {
     LocalDate birthDay = LocalDate.of(this.yearOfBirth, this.monthOfBirth, this.dayOfBirth);
     LocalDate today = LocalDate.now();
     return Period.between(birthDay, today).getYears();
   }
 
-  @Override public int getPlayerSkillLevel() {
+  @Override
+  public int getPlayerSkillLevel() {
     return this.skillLevel;
   }
 
-  @Override public Position getPreferredPosition() {
+  @Override
+  public Position getPreferredPosition() {
     return this.preferredPosition;
   }
 
-  @Override public String getLastName() {
+  @Override
+  public String getLastName() {
     return this.lastName;
   }
 

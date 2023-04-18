@@ -1,7 +1,5 @@
 package soccerteam;
 
-import com.sun.source.tree.Tree;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -36,8 +34,9 @@ public class U10TeamModelImpl implements U10TeamModel {
 
   }
 
-  @Override public void addPlayer(String firstName, String lastName, int year, int month, int day,
-      Position preferredPosition, int skillLevel)
+  @Override
+  public void addPlayer(String firstName, String lastName, int year, int month, int day,
+                        Position preferredPosition, int skillLevel)
       throws IllegalArgumentException, IllegalStateException {
     if (this.getSize() == 20) {
       throw new IllegalStateException(
@@ -56,7 +55,8 @@ public class U10TeamModelImpl implements U10TeamModel {
     }
   }
 
-  @Override public void removePlayer(int jerseyNumber)
+  @Override
+  public void removePlayer(int jerseyNumber)
       throws IllegalArgumentException, IllegalStateException {
     if (0 == this.getSize()) {
       throw new IllegalStateException("The team is empty, cannot remove anyone.");
@@ -92,7 +92,8 @@ public class U10TeamModelImpl implements U10TeamModel {
     return returnNumber;
   }
 
-  @Override public int getSize() {
+  @Override
+  public int getSize() {
     return this.teamMember.size();
   }
 
@@ -110,15 +111,17 @@ public class U10TeamModelImpl implements U10TeamModel {
     }
   }
 
-  @Override public void createTeam() throws IllegalStateException {
+  @Override
+  public void createTeam() throws IllegalStateException {
     if (this.getSize() < 10) {
       throw new IllegalStateException(
-         "Please make sure you have at least 10 Players.");
+          "Please make sure you have at least 10 Players.");
     }
     this.teamFormed = true;
   }
 
-  @Override public String[][] getTeam() {
+  @Override
+  public String[][] getTeam() {
     if (0 == this.getSize()) {
       String[][] teamArray = new String[1][2];
       teamArray[0][0] = "";
@@ -130,7 +133,7 @@ public class U10TeamModelImpl implements U10TeamModel {
     List<Player> allPlayers = new ArrayList<Player>(this.teamMember.values());
     this.sortListByLastName(allPlayers);
     String[][] teamArray = new String[this.teamMember.size()][2];
-    for(int i = 0; i < this.teamMember.size(); i++){
+    for (int i = 0; i < this.teamMember.size(); i++) {
       teamArray[i][0] = allPlayers.get(i).getName();
       teamArray[i][1] = String.format("%d", this.getJerseyNumber(allPlayers.get(i)));
     }
@@ -140,7 +143,8 @@ public class U10TeamModelImpl implements U10TeamModel {
 
   private void sortListByLastName(List<Player> sortingList) {
     sortingList.sort(new Comparator<Player>() {
-      @Override public int compare(Player o1, Player o2) {
+      @Override
+      public int compare(Player o1, Player o2) {
         return o1.getLastName().compareToIgnoreCase(o2.getLastName());
       }
     });
@@ -161,7 +165,8 @@ public class U10TeamModelImpl implements U10TeamModel {
     return -1;
   }
 
-  @Override public void formStartingLineup() throws IllegalStateException {
+  @Override
+  public void formStartingLineup() throws IllegalStateException {
     if (!this.teamFormed) {
       throw new IllegalStateException("Team is not formed, create a team first.");
     }
@@ -191,9 +196,9 @@ public class U10TeamModelImpl implements U10TeamModel {
    * with the highest skill level to fill, filling order is: goalie, defender, midfielder, forward.
    */
   private void fillSpots() {
-    int[] lineupFormation = { 1, 2, 3, 1 };
-    Position[] formationPosition = { Position.GOALIE, Position.DEFENDER, Position.MIDFIELDER,
-        Position.FORWARD };
+    int[] lineupFormation = {1, 2, 3, 1};
+    Position[] formationPosition = {Position.GOALIE, Position.DEFENDER, Position.MIDFIELDER,
+        Position.FORWARD};
 
     for (int i = 0; i < lineupFormation.length; i++) {
       while (lineupFormation[i] > this.startingLineup.get(formationPosition[i]).size()) {
@@ -208,9 +213,9 @@ public class U10TeamModelImpl implements U10TeamModel {
    * players by their skill level.
    */
   private void moveTailsToBench() {
-    int[] lineupFormation = { 1, 2, 3, 1 };
-    Position[] formationPosition = { Position.GOALIE, Position.DEFENDER, Position.MIDFIELDER,
-        Position.FORWARD };
+    int[] lineupFormation = {1, 2, 3, 1};
+    Position[] formationPosition = {Position.GOALIE, Position.DEFENDER, Position.MIDFIELDER,
+        Position.FORWARD};
 
     for (int i = 0; i < lineupFormation.length; i++) {
       while (lineupFormation[i] < this.startingLineup.get(formationPosition[i]).size()) {
@@ -241,13 +246,15 @@ public class U10TeamModelImpl implements U10TeamModel {
    */
   private void sortPlayerListBySkillLevel(List<Player> sortingList) {
     sortingList.sort(new Comparator<Player>() {
-      @Override public int compare(Player o1, Player o2) {
+      @Override
+      public int compare(Player o1, Player o2) {
         return o2.getPlayerSkillLevel() - o1.getPlayerSkillLevel();
       }
     });
   }
 
-  @Override public String[][] getStartingLineup() {
+  @Override
+  public String[][] getStartingLineup() {
     String[][] output = new String[7][3];
     int playerIndex = 0;
     for (Position i : this.startingLineup.keySet()) {
