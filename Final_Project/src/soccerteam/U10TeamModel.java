@@ -81,10 +81,4 @@ public interface U10TeamModel {
    */
   int getSize();
 
-  /**
-   * Get the jersey number of the last added player.
-   * @return the jersey number of the last added player.
-   */
-  int getLastAddedPlayerNumber();
-
 }

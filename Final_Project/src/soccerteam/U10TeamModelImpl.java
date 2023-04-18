@@ -97,11 +97,6 @@ public class U10TeamModelImpl implements U10TeamModel {
     return this.teamMember.size();
   }
 
-  @Override
-  public int getLastAddedPlayerNumber() {
-    return this.teamMember.lastKey();
-  }
-
   /**
    * Initialize jersey number pool, have number 1 to 21.
    */

@@ -51,17 +51,17 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
   // Components for New Player
   JPanel newPlayerPanel;
   JLabel firstNameLabel;
-  JLabel lastNameLabel;
-  JLabel dateOfBirthLabel;
-  JLabel preferredPositionLabel;
-  JLabel skillLevelLabel;
   JTextField firstNameInput;
+  JLabel lastNameLabel;
   JTextField lastNameInput;
+  JLabel dateOfBirthLabel;
   JPanel dateOfBirthDropPanel;
   JComboBox<Integer> yearDropdown;
   JComboBox<Integer> monthDropdown;
   JComboBox<Integer> dayDropdown;
+  JLabel preferredPositionLabel;
   JComboBox<Position> positionDropdown;
+  JLabel skillLevelLabel;
   JSlider skillLevelSlider;
   JButton discardButton;
   JButton addPlayerButton;

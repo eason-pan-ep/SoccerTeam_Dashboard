@@ -8,8 +8,15 @@ public class U10TeamFrameController implements U10TeamFeatures {
   U10TeamModel model;
   U10TeamView view;
 
-  public U10TeamFrameController(U10TeamModel model, U10TeamView view) throws IllegalArgumentException {
-    if(model == null || view == null){
+  /**
+   * Constructor of U10TeamFrameController.
+   * @param model the U10TeamModel.
+   * @param view the U10TeamFrameView.
+   * @throws IllegalArgumentException when model or/and view is null.
+   */
+  public U10TeamFrameController(U10TeamModel model, U10TeamView view)
+      throws IllegalArgumentException {
+    if (model == null || view == null) {
       throw new IllegalArgumentException("Model or/and view is not setup properly.");
     }
     this.model = model;
