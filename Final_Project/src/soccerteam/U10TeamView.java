@@ -1,9 +1,13 @@
 package soccerteam;
 
+import java.awt.*;
+
 public interface U10TeamView {
   int TEXT_INPUT_WIDTH = 21;
-  String[] TEAM_LIST_HEADING = {"Player Name", "Jersey Number"};
-  String[] STARTING_LINEUP_HEADING = {"Position", "Player Name", "Jersey Number"};
+  String[] TEAM_LIST_HEADER = {"Player Name", "Jersey Number"};
+  String[] STARTING_LINEUP_HEADER = {"Position", "Player Name", "Jersey Number"};
+  Font PANEL_TITLE_FONT = new Font("Arial", Font.BOLD, 20);
+  Font CONTENT_TITLE_FONT = new Font("Arial", Font.BOLD, 14);
 
   void addFeatures(U10TeamFeatures features);
 
@@ -15,12 +19,13 @@ public interface U10TeamView {
 
   void clearNewPlayerInput();
 
-  void clearRemovePlayerInput();
-
   void displayStartingLineupList(String[][] startingLineupList);
 
   void displayTeamList(String[][] teamList);
 
   void displayAddPlayerWarnings(String addPlayerWarning);
-  public void displayAddedNotice();
+  void displayAddedNotice();
+  void displayTeamManagementWarnings(String teamManagementWarning);
+  void displayTeamManagementNotice(String notice);
+
 }

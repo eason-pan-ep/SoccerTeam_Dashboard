@@ -4,7 +4,6 @@ import com.sun.source.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Formatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -42,7 +41,7 @@ public class U10TeamModelImpl implements U10TeamModel {
       throws IllegalArgumentException, IllegalStateException {
     if (this.getSize() == 20) {
       throw new IllegalStateException(
-          "This team is full, consider remove a Player before add new Player.");
+          "This team is full, consider remove a Player before adding.");
     }
     try {
       Player newPlayer = new PlayerImpl(firstName, lastName, year, month, day, preferredPosition,
@@ -64,8 +63,7 @@ public class U10TeamModelImpl implements U10TeamModel {
     }
     if (this.teamFormed && 10 == this.getSize()) {
       throw new IllegalStateException(
-          "Removing player will cause the team "
-              + "below the minimum member requirement for a formed team.");
+          "Currently at minimum number of players for an established team.");
     }
 
     if (jerseyNumber < 1 || jerseyNumber > 20) {
@@ -73,7 +71,7 @@ public class U10TeamModelImpl implements U10TeamModel {
     }
     if (this.availableJerseyNumber.contains(jerseyNumber)) {
       throw new IllegalArgumentException(
-          "This jersey number does not belong to anyone in the team, please check again.");
+          "Invalid team member number, please check again.");
     }
 
     this.teamMember.remove(jerseyNumber);
@@ -115,8 +113,7 @@ public class U10TeamModelImpl implements U10TeamModel {
   @Override public void createTeam() throws IllegalStateException {
     if (this.getSize() < 10) {
       throw new IllegalStateException(
-          "There are less than 10 players in this team, "
-              + "can't form a team right now. Please add more players.");
+         "Please make sure you have at least 10 Players.");
     }
     this.teamFormed = true;
   }
@@ -250,18 +247,18 @@ public class U10TeamModelImpl implements U10TeamModel {
     });
   }
 
-  @Override public String getStartingLineup() {
-    Formatter outputTable = new Formatter();
-    outputTable.format("%34s\n", "Starting Lineup");
-    outputTable.format("-----------------------------------------------------\n");
-    outputTable.format("%16s %16s %16s\n", "Position", "Player Name", "Jersey Number");
-    outputTable.format("-----------------------------------------------------\n");
+  @Override public String[][] getStartingLineup() {
+    String[][] output = new String[7][3];
+    int playerIndex = 0;
     for (Position i : this.startingLineup.keySet()) {
       for (Player j : this.startingLineup.get(i)) {
-        outputTable.format("%16s %16s %10d\n", i.toString(), j.getName(), this.getJerseyNumber(j));
+        output[playerIndex][0] = i.toString();
+        output[playerIndex][1] = j.getName();
+        output[playerIndex][2] = String.valueOf(this.getJerseyNumber(j));
+        playerIndex += 1;
       }
     }
-    return outputTable.toString();
+    return output;
   }
 }
 

@@ -3,6 +3,7 @@ package soccerteam;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.Year;
+import java.util.Scanner;
 
 /**
  * Implementation of Player Interface. This class represents a U10 soccer team player. It contains
@@ -37,6 +38,12 @@ public class PlayerImpl implements Player {
       int dayOfBirth, Position preferredPosition, int skillLevel) throws IllegalArgumentException {
     if (yearOfBirth < 1900 || yearOfBirth > Year.now().getValue()) {
       throw new IllegalArgumentException("Doesn't look like a human current living on Earth.");
+    }
+    if(yearOfBirth == Year.now().getValue() && monthOfBirth > LocalDate.now().getMonthValue()){
+      throw new IllegalArgumentException("This person seems like from the future.");
+    }
+    if(yearOfBirth == Year.now().getValue() && monthOfBirth == LocalDate.now().getMonthValue() && dayOfBirth > LocalDate.now().getDayOfMonth()){
+      throw new IllegalArgumentException("This person seems like from the future");
     }
     if (monthOfBirth < 1 || monthOfBirth > 12) {
       throw new IllegalArgumentException("Doesn't look like a month on Earth.");

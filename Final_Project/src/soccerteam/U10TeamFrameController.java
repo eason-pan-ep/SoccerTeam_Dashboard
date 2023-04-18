@@ -31,27 +31,54 @@ public class U10TeamFrameController implements U10TeamFeatures {
 
   @Override
   public void updateTeamStatus(boolean creationStatus) {
-
+    if(creationStatus){
+      this.view.displayTeamStatus("Established");
+    }
   }
 
   @Override
   public void updateStartingLineupStatus(boolean staringLineupStatus) {
-
+    if(staringLineupStatus){
+      this.view.displayStartingLineupStatus("Formed");
+    }
   }
 
   @Override
   public void removePlayer(int removeJerseyNumber) {
+    try {
+      this.model.removePlayer(removeJerseyNumber);
+      this.updateTeamList();
+      this.updateTeamSize();
+      this.view.displayTeamManagementNotice(" Player Removed.");
+    }catch (IllegalArgumentException | IllegalStateException e){
+      this.updateTeamManagementWarnings(e.getMessage());
+    }
 
   }
 
   @Override
   public void createTeam() {
+    try{
+      this.model.createTeam();
+      this.updateTeamStatus(true);
+      this.view.displayTeamManagementNotice("Team Established");
+    }catch (IllegalStateException e){
+      this.updateTeamManagementWarnings(e.getMessage());
+    }
 
   }
 
   @Override
   public void formStartingLineup() {
-
+    try{
+      this.model.formStartingLineup();
+      String[][] startingLineup = this.model.getStartingLineup();
+      this.updateStartingLineupStatus(true);
+      this.view.displayStartingLineupList(startingLineup);
+      this.view.displayTeamManagementNotice("Starting Lineup formed");
+    }catch (IllegalStateException e){
+      this.updateTeamManagementWarnings(e.getMessage());
+    }
   }
 
   @Override
@@ -78,10 +105,15 @@ public class U10TeamFrameController implements U10TeamFeatures {
     this.view.displayAddPlayerWarnings(addPlayerWarning);
   }
 
+  @Override
+  public void updateTeamManagementWarnings(String teamManagementWarning) {
+    this.view.displayTeamManagementWarnings(teamManagementWarning);
+  }
+
   ;
 
   @Override
   public void exitApp() {
-
+    System.exit(0);
   }
 }

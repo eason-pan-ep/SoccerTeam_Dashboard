@@ -22,5 +22,7 @@ public interface U10TeamFeatures {
 
     void updateAddPlayerWarnings(String addPlayerWarning);
 
+    void updateTeamManagementWarnings(String teamManagementWarning);
+
     void exitApp();
 }
