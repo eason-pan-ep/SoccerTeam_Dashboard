@@ -18,7 +18,7 @@ public interface U10TeamView {
   /**
    * The Header of Team Member Table.
    */
-  String[] TEAM_LIST_HEADER = {"Player Name", "Jersey Number"};
+  String[] TEAM_LIST_HEADER = {"Name", "Number", "Preference", "Skill Level"};
 
   /**
    * The Header of Starting Lineup Table.
@@ -104,5 +104,10 @@ public interface U10TeamView {
    * @param notice action success info.
    */
   void displayTeamManagementNotice(String notice);
+
+  /**
+   * To disable create team button.
+   */
+  void disableCreateTeamButton();
 
 }

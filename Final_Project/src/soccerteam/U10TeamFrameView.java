@@ -7,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -82,6 +85,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
 
   /**
    * The constructor of the view.
+   *
    * @param appName app name.
    */
   public U10TeamFrameView(String appName) {
@@ -151,6 +155,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
         new DefaultTableModel(this.startingLineupData, STARTING_LINEUP_HEADER)
     );
     this.displayStartingLineupList.getTableHeader().setFont(CONTENT_TITLE_FONT);
+    this.displayStartingLineupList.setEnabled(false);
     this.startingLineupContainer = new JScrollPane(this.displayStartingLineupList);
     this.startingLineupContainer.setPreferredSize(new Dimension(300, 150));
     this.startingLineupContainer.setBorder(BorderFactory.createEmptyBorder());
@@ -172,14 +177,16 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     TitledBorder teamMemberBoarder = new TitledBorder(SECTION_BORDER, "Team Members");
     teamMemberBoarder.setTitleFont(PANEL_TITLE_FONT);
     this.teamMemberPanel.setBorder(teamMemberBoarder);
+    this.teamMemberPanel.setPreferredSize(new Dimension(350, 250));
 
-    this.teamMemberData = new String[20][2];
+    this.teamMemberData = new String[20][4];
     this.displayTeamMemberList = new JTable(
         new DefaultTableModel(this.teamMemberData, TEAM_LIST_HEADER)
     );
     this.displayTeamMemberList.getTableHeader().setFont(CONTENT_TITLE_FONT);
+    this.displayTeamMemberList.setEnabled(false);
     this.teamMemberContainer = new JScrollPane(this.displayTeamMemberList);
-    this.teamMemberContainer.setPreferredSize(new Dimension(300, 200));
+    this.teamMemberContainer.setPreferredSize(new Dimension(350, 200));
     this.teamMemberContainer.setBorder(BorderFactory.createEmptyBorder());
     this.teamMemberPanel.add(this.teamMemberContainer);
 
@@ -364,7 +371,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     GridBagConstraints removeLabelGrid = new GridBagConstraints();
     removeLabelGrid.gridx = 0;
     removeLabelGrid.gridy = 0;
-    this.removePlayerLabel = new JLabel(" Removing Player's Number: ");
+    this.removePlayerLabel = new JLabel("Removing Player's Number: ");
     this.removePlayerLabel.setFont(CONTENT_TITLE_FONT);
     this.teamManagementPanel.add(this.removePlayerLabel, removeLabelGrid);
 
@@ -480,6 +487,7 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
     this.dayDropdown.setSelectedIndex(0);
     this.positionDropdown.setSelectedIndex(0);
     this.skillLevelSlider.setValue(0);
+    this.resetAddPlayerWarnings();
   }
 
   @Override
@@ -510,6 +518,20 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
   public void displayAddedNotice() {
     this.addPlayerWarnings.setForeground(Color.BLUE);
     this.addPlayerWarnings.setText(" Player Added.");
+    Timer countDownToResetWarnings = new Timer(2000, new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        resetAddPlayerWarnings();
+      }
+    });
+    countDownToResetWarnings.setRepeats(false);
+    countDownToResetWarnings.start();
+
+  }
+
+  private void resetAddPlayerWarnings() {
+    this.addPlayerWarnings.setForeground(Color.BLACK);
+    this.addPlayerWarnings.setText(" *Please fill all the fields");
   }
 
   @Override
@@ -522,5 +544,23 @@ public class U10TeamFrameView extends JFrame implements U10TeamView {
   public void displayTeamManagementNotice(String notice) {
     this.teamManagementWarnings.setForeground(Color.BLUE);
     this.teamManagementWarnings.setText(notice);
+    Timer countdownResetNotice = new Timer(2000, new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        resetTeamManagementNotice();
+      }
+    });
+    countdownResetNotice.setRepeats(false);
+    countdownResetNotice.start();
+  }
+
+  @Override
+  public void disableCreateTeamButton() {
+    this.createTeamButton.setEnabled(false);
+  }
+
+  private void resetTeamManagementNotice() {
+    this.teamManagementWarnings.setForeground(Color.BLACK);
+    this.teamManagementWarnings.setText("*Be careful when removing players.");
   }
 }

@@ -118,19 +118,23 @@ public class U10TeamModelImpl implements U10TeamModel {
   @Override
   public String[][] getTeam() {
     if (0 == this.getSize()) {
-      String[][] teamArray = new String[1][2];
+      String[][] teamArray = new String[1][4];
       teamArray[0][0] = "";
       teamArray[0][1] = "";
+      teamArray[0][2] = "";
+      teamArray[0][3] = "";
       return teamArray;
     }
 
 
     List<Player> allPlayers = new ArrayList<Player>(this.teamMember.values());
     this.sortListByLastName(allPlayers);
-    String[][] teamArray = new String[this.teamMember.size()][2];
+    String[][] teamArray = new String[this.teamMember.size()][4];
     for (int i = 0; i < this.teamMember.size(); i++) {
       teamArray[i][0] = allPlayers.get(i).getName();
-      teamArray[i][1] = String.format("%d", this.getJerseyNumber(allPlayers.get(i)));
+      teamArray[i][1] = String.valueOf(this.getJerseyNumber(allPlayers.get(i)));
+      teamArray[i][2] = allPlayers.get(i).getPreferredPosition().toString();
+      teamArray[i][3] = String.valueOf(allPlayers.get(i).getPlayerSkillLevel());
     }
 
     return teamArray;
@@ -163,7 +167,7 @@ public class U10TeamModelImpl implements U10TeamModel {
   @Override
   public void formStartingLineup() throws IllegalStateException {
     if (!this.teamFormed) {
-      throw new IllegalStateException("Team is not formed, create a team first.");
+      throw new IllegalStateException("Team is not established, create a team first.");
     }
     this.startingLineup.put(Position.GOALIE, new ArrayList<Player>());
     this.startingLineup.put(Position.DEFENDER, new ArrayList<Player>());

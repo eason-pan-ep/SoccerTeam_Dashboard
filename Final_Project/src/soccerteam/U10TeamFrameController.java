@@ -1,5 +1,7 @@
 package soccerteam;
 
+import java.time.DateTimeException;
+
 /**
  * The implementation of U10Team Controller Interface.
  * This serves as a controller connects the view and the model.
@@ -38,7 +40,7 @@ public class U10TeamFrameController implements U10TeamFeatures {
       this.view.clearNewPlayerInput();
       this.view.displayAddedNotice();
       this.updateTeamSize();
-    } catch (IllegalArgumentException | IllegalStateException | NullPointerException e) {
+    } catch (IllegalArgumentException | IllegalStateException | DateTimeException | NullPointerException e) {
       this.updateAddPlayerWarnings(e.getMessage());
     }
 
@@ -77,6 +79,7 @@ public class U10TeamFrameController implements U10TeamFeatures {
       this.model.createTeam();
       this.updateTeamStatus(true);
       this.view.displayTeamManagementNotice("Team Established");
+      this.view.disableCreateTeamButton();
     } catch (IllegalStateException e) {
       this.updateTeamManagementWarnings(e.getMessage());
     }
