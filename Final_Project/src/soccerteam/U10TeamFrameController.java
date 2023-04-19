@@ -40,7 +40,8 @@ public class U10TeamFrameController implements U10TeamFeatures {
       this.view.clearNewPlayerInput();
       this.view.displayAddedNotice();
       this.updateTeamSize();
-    } catch (IllegalArgumentException | IllegalStateException | DateTimeException | NullPointerException e) {
+    } catch (IllegalArgumentException | IllegalStateException
+             | DateTimeException | NullPointerException e) {
       this.updateAddPlayerWarnings(e.getMessage());
     }
 
