@@ -1,4 +1,5 @@
 # SoccerTeam_Dashboard
-Starting as a course work in Spring 2023. Then tweaking it during the time.
+Course work in Spring 2023.
 
 - Original Course Work in the Final_Project Folder
+- Stay tunned for future development (planned)
